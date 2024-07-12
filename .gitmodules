@@ -1,0 +1,59 @@
+[submodule "foundry/lib/forge-std"]
+	path = foundry/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/openzeppelin-contracts"]
+	path = foundry/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/solmate"]
+	path = foundry/lib/solmate
+	url = https://github.com/transmissions11/solmate
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/solady"]
+	path = foundry/lib/solady
+	url = https://github.com/vectorized/solady
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/openzeppelin-contracts-upgradeable"]
+	path = foundry/lib/openzeppelin-contracts-upgradeable
+	url = https://github.com/openzeppelin/openzeppelin-contracts-upgradeable
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/v2-periphery"]
+	path = foundry/lib/v2-periphery
+	url = https://github.com/uniswap/v2-periphery
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/v2-core"]
+	path = foundry/lib/v2-core
+	url = https://github.com/uniswap/v2-core
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/multicall"]
+	path = foundry/lib/multicall
+	url = https://github.com/mds1/multicall
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/safe-smart-account"]
+	path = foundry/lib/safe-smart-account
+	url = https://github.com/safe-global/safe-smart-account
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/murky"]
+	path = foundry/lib/murky
+	url = https://github.com/dmfxyz/murky
+	ignore = dirty
+	shallow = true
+[submodule "foundry/lib/v3-periphery"]
+	path = foundry/lib/v3-periphery
+	url = https://github.com/Uniswap/v3-periphery
+[submodule "foundry/lib/v3-core"]
+	path = foundry/lib/v3-core
+	url = https://github.com/Uniswap/v3-core
+[submodule "lib/permit2"]
+	path = lib/permit2
+	url = https://github.com/Uniswap/permit2
