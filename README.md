@@ -44,6 +44,10 @@ Challenges may have more than one possible solution.
 - You can use Foundry's cheatcodes to advance time when necessary.
 - You can import external libraries that aren't installed, although it shouldn't be necessary.
 
+## Troubleshooting
+
+You can ask the community for help in [the discussions section](https://github.com/theredguild/damn-vulnerable-defi/discussions).
+
 ## Disclaimer
 
 All code, practices and patterns in this repository are DAMN VULNERABLE and for educational purposes only.
