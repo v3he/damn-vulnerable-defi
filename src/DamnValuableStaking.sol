@@ -5,7 +5,7 @@ pragma solidity =0.8.25;
 import {DamnValuableToken, ERC20} from "./DamnValuableToken.sol";
 
 /**
- * @notice Stake your Damn Valuable Tokens, to earn more Damn Valuable Tokens
+ * @notice Stake your Damn Valuable Tokens, to earn more Damn Valuable Tokens.
  */
 contract DamnValuableStaking is ERC20 {
     DamnValuableToken public immutable token;

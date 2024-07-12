@@ -2,6 +2,10 @@
 // Damn Vulnerable DeFi v4 (https://damnvulnerabledefi.xyz)
 pragma solidity =0.8.25;
 
+/**
+ * @notice This contract is not deployed in the challenge.
+ *         We just include it for you to understand how the withdrawal logs were created. 
+ */
 contract L2MessageStore {
     uint256 public nonce;
     mapping(bytes32 messageId => bool seen) public messageStore;

@@ -7,7 +7,7 @@ import {ERC721Burnable} from "@openzeppelin/contracts/token/ERC721/extensions/ER
 import {OwnableRoles} from "solady/auth/OwnableRoles.sol";
 
 /**
- * @notice Mintable and burnable NFT with role-based access controls
+ * @notice Mintable and burnable NFT with role-based access controls.
  */
 contract DamnValuableNFT is ERC721, ERC721Burnable, OwnableRoles {
     uint256 public constant MINTER_ROLE = _ROLE_0;

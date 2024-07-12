@@ -5,6 +5,10 @@ pragma solidity =0.8.25;
 import {L1Forwarder} from "./L1Forwarder.sol";
 import {L2MessageStore} from "./L2MessageStore.sol";
 
+/**
+ * @notice This contract is not deployed in the challenge.
+ *         We just include it for you to understand how the withdrawal logs were created. 
+ */
 contract L2Handler {
     L2MessageStore public immutable l2MessageStore;
     uint256 public nonce;
