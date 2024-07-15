@@ -2,58 +2,50 @@
 	path = lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
 	ignore = dirty
-	shallow = true
 [submodule "lib/openzeppelin-contracts"]
 	path = lib/openzeppelin-contracts
 	url = https://github.com/openzeppelin/openzeppelin-contracts
 	ignore = dirty
-	shallow = true
 [submodule "lib/solmate"]
 	path = lib/solmate
 	url = https://github.com/transmissions11/solmate
 	ignore = dirty
-	shallow = true
 [submodule "lib/solady"]
 	path = lib/solady
 	url = https://github.com/vectorized/solady
 	ignore = dirty
-	shallow = true
 [submodule "lib/openzeppelin-contracts-upgradeable"]
 	path = lib/openzeppelin-contracts-upgradeable
 	url = https://github.com/openzeppelin/openzeppelin-contracts-upgradeable
 	ignore = dirty
-	shallow = true
 [submodule "lib/v2-periphery"]
 	path = lib/v2-periphery
 	url = https://github.com/uniswap/v2-periphery
 	ignore = dirty
-	shallow = true
 [submodule "lib/v2-core"]
 	path = lib/v2-core
 	url = https://github.com/uniswap/v2-core
 	ignore = dirty
-	shallow = true
 [submodule "lib/multicall"]
 	path = lib/multicall
 	url = https://github.com/mds1/multicall
 	ignore = dirty
-	shallow = true
 [submodule "lib/safe-smart-account"]
 	path = lib/safe-smart-account
 	url = https://github.com/safe-global/safe-smart-account
 	ignore = dirty
-	shallow = true
 [submodule "lib/murky"]
 	path = lib/murky
 	url = https://github.com/dmfxyz/murky
 	ignore = dirty
-	shallow = true
 [submodule "lib/v3-periphery"]
 	path = lib/v3-periphery
 	url = https://github.com/Uniswap/v3-periphery
 [submodule "lib/v3-core"]
 	path = lib/v3-core
 	url = https://github.com/Uniswap/v3-core
+	ignore = dirty
 [submodule "lib/permit2"]
 	path = lib/permit2
 	url = https://github.com/Uniswap/permit2
+	ignore = dirty
