@@ -14,24 +14,25 @@ Use Damn Vulnerable DeFi to:
 ## Install
 
 1. Clone the repository.
-2. Checkout the latest release.
+2. Checkout the latest release (for example, `git checkout v4.0.0`)
 3. Rename the `.env.sample` file to `.env` and add a valid RPC URL. This is only needed for the challenges that fork mainnet state.
 4. Either install [Foundry](https://book.getfoundry.sh/getting-started/installation), or use the [provided devcontainer](./.devcontainer/) (In VSCode, open the repository as a devcontainer with the command "Devcontainer: Open Folder in Container...")
+5. Run `forge build` to initialize the project.
 
 ## Usage
 
 Each challenge is made up of:
 
-- A prompt located in `src/challenge-name/README.md`.
-- A set of contracts located in `src/challenge-name/`.
-- A [Foundry test](https://book.getfoundry.sh/forge/tests) located in `test/challenge-name/ChallengeName.t.sol`.
+- A prompt located in `src/<challenge-name>/README.md`.
+- A set of contracts located in `src/<challenge-name>/`.
+- A [Foundry test](https://book.getfoundry.sh/forge/tests) located in `test/<challenge-name>/<ChallengeName>.t.sol`.
 
 To solve a challenge:
 
 1. Read the challenge's prompt.
 2. Uncover the flaw(s) in the challenge's smart contracts.
 3. Code your solution in the corresponding test file.
-4. Try your solution with `forge test --match-contract ChallengeName`.
+4. Try your solution with `forge test --mp test/<challenge-name>/<ChallengeName>.t.sol`.
 If the test passes, you've solved the challenge!
 
 Challenges may have more than one possible solution.
