@@ -32,7 +32,11 @@ contract UnstoppableChallenge is Test {
         startHoax(deployer);
         // Deploy token and vault
         token = new DamnValuableToken();
-        vault = new UnstoppableVault({_token: token, _owner: deployer, _feeRecipient: deployer});
+        vault = new UnstoppableVault({
+            _token: token,
+            _owner: deployer,
+            _feeRecipient: deployer
+        });
 
         // Deposit tokens to vault
         token.approve(address(vault), TOKENS_IN_VAULT);
@@ -88,10 +92,20 @@ contract UnstoppableChallenge is Test {
     }
 
     /**
-     * CODE YOUR SOLUTION HERE
+     * Exploit Explanation:
+     * We directly transfer 1 DVT token to the vault without using the deposit() function.
+     * This increases the vault's actual token balance (totalAssets),
+     * but does NOT increase its internal accounting (totalSupply / shares).
+     *
+     * As a result, the vault's invariant:
+     *     convertToShares(totalSupply) == totalAssets()
+     * becomes false, triggering a revert in the flashLoan function.
+     *
+     * This effectively "halts" the vault by making future flash loans impossible,
+     * which is exactly what the UnstoppableMonitor detects to solve the challenge.
      */
     function test_unstoppable() public checkSolvedByPlayer {
-        
+        token.transfer(address(vault), 1 ether); // desyncing in balance vs shares
     }
 
     /**
