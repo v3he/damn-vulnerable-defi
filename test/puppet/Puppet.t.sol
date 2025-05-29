@@ -103,7 +103,7 @@ contract PuppetChallenge is Test {
         console.log("Token in Uniswap:", token.balanceOf(address(uniswapV1Exchange)));
         console.log("Oracle Price:", lendingPool.calculateDepositRequired(100_000e18) / 1e18);
 
-        lendingPool.borrow{value: lendingPool.calculateDepositRequired(100_000e18) }(100_000e18, address(player));
+        lendingPool.borrow{value: lendingPool.calculateDepositRequired(100_000e18)}(100_000e18, address(player));
         token.transfer(address(recovery), token.balanceOf(address(player)));
 
         console.log("plaher dvt", token.balanceOf(player));
