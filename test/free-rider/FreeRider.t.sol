@@ -8,6 +8,7 @@ import {IUniswapV2Pair} from "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pa
 import {IUniswapV2Factory} from "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import {IUniswapV2Router02} from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
+import {FreeRiderExploit} from "./FreeRiderExploit.sol";
 import {FreeRiderNFTMarketplace} from "../../src/free-rider/FreeRiderNFTMarketplace.sol";
 import {FreeRiderRecoveryManager} from "../../src/free-rider/FreeRiderRecoveryManager.sol";
 import {DamnValuableNFT} from "../../src/DamnValuableNFT.sol";
@@ -26,7 +27,7 @@ contract FreeRiderChallenge is Test {
     uint256 constant BOUNTY = 45 ether;
 
     // Initial reserves for the Uniswap V2 pool
-    uint256 constant UNISWAP_INITIAL_TOKEN_RESERVE = 15000e18;
+    uint256 constant UNISWAP_INITIAL_TOKEN_RESERVE = 15_000e18;
     uint256 constant UNISWAP_INITIAL_WETH_RESERVE = 9000e18;
 
     WETH weth;
@@ -123,7 +124,15 @@ contract FreeRiderChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_freeRider() public checkSolvedByPlayer {
-        
+        FreeRiderExploit exploit = new FreeRiderExploit(
+            address(uniswapV2Factory),
+            address(uniswapPair),
+            payable(weth),
+            address(token),
+            payable(marketplace),
+            address(recoveryManager)
+        );
+        exploit.run(NFT_PRICE * AMOUNT_OF_NFTS);
     }
 
     /**
@@ -134,15 +143,15 @@ contract FreeRiderChallenge is Test {
         for (uint256 tokenId = 0; tokenId < AMOUNT_OF_NFTS; tokenId++) {
             vm.prank(recoveryManagerOwner);
             nft.transferFrom(address(recoveryManager), recoveryManagerOwner, tokenId);
-            assertEq(nft.ownerOf(tokenId), recoveryManagerOwner);
+            assertEq(nft.ownerOf(tokenId), recoveryManagerOwner, "NFT not recovered by owner");
         }
 
         // Exchange must have lost NFTs and ETH
-        assertEq(marketplace.offersCount(), 0);
-        assertLt(address(marketplace).balance, MARKETPLACE_INITIAL_ETH_BALANCE);
+        assertEq(marketplace.offersCount(), 0, "Marketplace still has active offers");
+        assertLt(address(marketplace).balance, MARKETPLACE_INITIAL_ETH_BALANCE, "Marketplace ETH balance unchanged");
 
         // Player must have earned all ETH
-        assertGt(player.balance, BOUNTY);
-        assertEq(address(recoveryManager).balance, 0);
+        assertGt(player.balance, BOUNTY, "Player did not receive bounty");
+        assertEq(address(recoveryManager).balance, 0, "RecoveryManager still holds ETH");
     }
 }
