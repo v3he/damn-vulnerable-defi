@@ -6,6 +6,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {Safe} from "@safe-global/safe-smart-account/contracts/Safe.sol";
 import {SafeProxyFactory} from "@safe-global/safe-smart-account/contracts/proxies/SafeProxyFactory.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
+import {BackdoorExploit} from "./BackdoorExploit.sol";
 import {WalletRegistry} from "../../src/backdoor/WalletRegistry.sol";
 
 contract BackdoorChallenge is Test {
@@ -66,11 +67,17 @@ contract BackdoorChallenge is Test {
         }
     }
 
-    /**
-     * CODE YOUR SOLUTION HERE
-     */
     function test_backdoor() public checkSolvedByPlayer {
-        
+        BackdoorExploit exploit = new BackdoorExploit(
+            payable(singletonCopy),
+            address(walletFactory),
+            address(walletRegistry),
+            address(recovery),
+            address(token),
+            users
+        );
+
+        exploit.run();
     }
 
     /**
