@@ -127,12 +127,13 @@ contract FreeRiderChallenge is Test {
         FreeRiderExploit exploit = new FreeRiderExploit(
             address(uniswapV2Factory),
             address(uniswapPair),
-            payable(weth),
             address(token),
+            payable(weth),
+            payable(player),
             payable(marketplace),
             address(recoveryManager)
         );
-        exploit.run(NFT_PRICE * AMOUNT_OF_NFTS);
+        exploit.run(NFT_PRICE, AMOUNT_OF_NFTS);
     }
 
     /**
