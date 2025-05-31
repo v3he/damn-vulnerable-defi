@@ -3,6 +3,7 @@
 pragma solidity =0.8.25;
 
 import {Test, console} from "forge-std/Test.sol";
+import {ClimberExploit} from "./ClimberExploit.sol";
 import {ClimberVault} from "../../src/climber/ClimberVault.sol";
 import {ClimberTimelock, CallerNotTimelock, PROPOSER_ROLE, ADMIN_ROLE} from "../../src/climber/ClimberTimelock.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
@@ -81,11 +82,10 @@ contract ClimberChallenge is Test {
         assertEq(token.balanceOf(address(vault)), VAULT_TOKEN_BALANCE);
     }
 
-    /**
-     * CODE YOUR SOLUTION HERE
-     */
     function test_climber() public checkSolvedByPlayer {
-        
+        ClimberExploit exploit =
+            new ClimberExploit(address(vault), payable(timelock), address(token), payable(recovery));
+        exploit.run();
     }
 
     /**
